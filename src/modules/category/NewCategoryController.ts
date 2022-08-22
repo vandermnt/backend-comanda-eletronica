@@ -16,7 +16,6 @@ class NewCategoryController {
     const newCategory = new Category();
     newCategory.name = name;
 
-    console.log(newCategory);
     return await categoryRepository.create(newCategory);
   }
 }

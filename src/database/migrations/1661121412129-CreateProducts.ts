@@ -38,7 +38,7 @@ export class CreateProducts1661121412129 implements MigrationInterface {
       onDelete: "CASCADE",
     });
 
-    await queryRunner.createForeignKey("answer", foreignKey);
+    await queryRunner.createForeignKey("product", foreignKey);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
