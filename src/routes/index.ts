@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { loginRouter } from "./login.routes";
+import { categoryRouter } from "./category.routes";
 
 const routes = Router();
 
-routes.use(loginRouter);
+routes.use(categoryRouter);
+
+export { routes };
