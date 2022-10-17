@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  Double,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,

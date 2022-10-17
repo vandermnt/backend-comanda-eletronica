@@ -19,6 +19,11 @@ export class CreateTables1661147735797 implements MigrationInterface {
             name: "number",
             type: "int",
           },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
       })
     );

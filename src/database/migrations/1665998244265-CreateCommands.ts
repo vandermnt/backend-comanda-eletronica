@@ -1,3 +1,4 @@
+import { query } from "express";
 import {
   MigrationInterface,
   QueryRunner,
@@ -5,26 +6,27 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateProducts1661121412129 implements MigrationInterface {
+export class CreateCommands1665998244265 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
-        name: "product",
+        name: "command",
         columns: [
           {
-            name: "name",
-            type: "varchar",
-          },
-          {
-            name: "price",
+            name: "id",
             type: "int",
+            isPrimary: true,
           },
           {
-            name: "description",
+            name: "value",
+            type: "double",
+          },
+          {
+            name: "status",
             type: "varchar",
           },
           {
-            name: "id_category",
+            name: "id_table",
             type: "int",
           },
           {
@@ -37,16 +39,16 @@ export class CreateProducts1661121412129 implements MigrationInterface {
     );
 
     const foreignKey = new TableForeignKey({
-      columnNames: ["id_category"],
+      columnNames: ["id_table"],
       referencedColumnNames: ["id"],
-      referencedTableName: "category",
+      referencedTableName: "table",
       onDelete: "CASCADE",
     });
 
-    await queryRunner.createForeignKey("product", foreignKey);
+    await queryRunner.createForeignKey("command", foreignKey);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("product");
+    await queryRunner.dropTable("command");
   }
 }
