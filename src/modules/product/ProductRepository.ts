@@ -1,5 +1,5 @@
-import { AppDataSource } from "../../database/data-source";
 import { Product } from "../../entities/Product";
+import { AppDataSource } from "../../database/data-source";
 
 class ProductRepository {
   private readonly productRepository;
