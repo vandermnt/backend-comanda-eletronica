@@ -19,7 +19,7 @@ export class CreateCommands1665998244265 implements MigrationInterface {
           },
           {
             name: "value",
-            type: "double",
+            type: "decimal",
           },
           {
             name: "status",

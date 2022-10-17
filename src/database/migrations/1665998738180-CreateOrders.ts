@@ -27,7 +27,7 @@ export class CreateOrders1665998738180 implements MigrationInterface {
           },
           {
             name: "value",
-            type: "double",
+            type: "decimal",
           },
           {
             name: "id_command",
