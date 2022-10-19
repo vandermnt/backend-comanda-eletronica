@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Category } from "../entities/Category";
+import { Command } from "../entities/Command";
+import { Order } from "../entities/Order";
 import { Product } from "../entities/Product";
 import { Table } from "../entities/Table";
 
@@ -12,7 +14,7 @@ export const AppDataSource = new DataSource({
   password: "root",
   database: "db-comanda-eletronica",
   synchronize: true,
-  entities: [Category, Product, Table],
+  entities: [Category, Product, Table, Command, Order],
   migrations: ["dist/database/migrations/*.js"],
 });
 

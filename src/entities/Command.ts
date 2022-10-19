@@ -2,18 +2,22 @@ import {
   Column,
   CreateDateColumn,
   Double,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Table } from "./Table";
 
+@Entity()
 export class Command {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  value: Double;
+  value: number;
 
   @Column()
   status: string;
@@ -21,7 +25,7 @@ export class Command {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToOne(() => Table, (table) => table.id)
+  @OneToMany(() => Table, (table) => table.id)
   @JoinColumn()
   id_table: number;
 }

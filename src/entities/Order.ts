@@ -2,7 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Double,
+  Entity,
   JoinColumn,
+  ManyToMany,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -10,6 +13,7 @@ import { Command } from "./Command";
 import { Product } from "./Product";
 import { Table } from "./Table";
 
+@Entity()
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,15 +30,15 @@ export class Order {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToOne(() => Command, (command) => command.id)
+  @ManyToOne(() => Command, (command) => command.id)
   @JoinColumn()
   id_command: number;
 
-  @OneToOne(() => Table, (table) => table.id)
+  @ManyToOne(() => Table, (table) => table.id)
   @JoinColumn()
   id_table: number;
 
-  @OneToOne(() => Product, (product) => product.id)
+  @ManyToOne(() => Product, (product) => product.id)
   @JoinColumn()
   id_product: number;
 }

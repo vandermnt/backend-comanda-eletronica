@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { OrderRepository } from "./OrderRepository";
+import { container } from "tsyringe";
+import { NewOrderHandler } from "./NewOrderHandler";
 
 class NewOrderController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const orderRepository = new OrderRepository();
-    console.log(request.body);
-    const { order } = request.body;
-    await orderRepository.create(order);
+    const newOrderHandler = container.resolve(NewOrderHandler);
+    await newOrderHandler.handler(request.body.order);
     return response.status(201);
   }
 }
