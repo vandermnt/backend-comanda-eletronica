@@ -21,7 +21,10 @@ export class Product {
   @Column()
   price: number;
 
-  @OneToOne(() => Category, (category) => category.id)
-  @JoinColumn()
-  id_category: Category;
+  @Column()
+  id_category: number;
+
+  @OneToOne(() => Category, (category) => category.id, { eager: true })
+  @JoinColumn({ name: "id_category" })
+  category: Category;
 }

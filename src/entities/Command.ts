@@ -26,6 +26,6 @@ export class Command {
   created_at: Date;
 
   @OneToMany(() => Table, (table) => table.id)
-  @JoinColumn()
+  @JoinColumn({ name: "id_table" })
   id_table: number;
 }

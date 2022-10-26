@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
+import { container } from "tsyringe";
 import { CategoryRepository } from "./CategoryRepository";
 
 class ListCategoryContoller {
   async execute(request: Request, response: Response): Promise<Response> {
-    const categoryRepository = new CategoryRepository();
+    const categoryRepository = container.resolve(CategoryRepository);
 
     const categories = await categoryRepository.getAll();
 

@@ -12,6 +12,11 @@ export class CreateProducts1661121412129 implements MigrationInterface {
         name: "product",
         columns: [
           {
+            name: "id",
+            type: "int",
+            isPrimary: true,
+          },
+          {
             name: "name",
             type: "varchar",
           },

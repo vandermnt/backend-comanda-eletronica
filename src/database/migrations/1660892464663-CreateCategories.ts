@@ -8,7 +8,7 @@ export class CreateCategories1660892464663 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "uuid",
+            type: "int",
             isPrimary: true,
           },
           {

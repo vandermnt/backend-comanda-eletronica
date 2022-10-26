@@ -13,7 +13,7 @@ class OrderRepository {
     this.commandRepository = AppDataSource.getRepository(Command);
   }
 
-  async create(order: any): Promise<void> {
+  async create(order: any, command: Command): Promise<void> {
     const orderCreated = new Order();
     orderCreated.id_product = order.productId;
     orderCreated.id_table = order.tableId;
@@ -21,13 +21,13 @@ class OrderRepository {
     orderCreated.id_command = order.commandId;
     orderCreated.note = order.note;
     orderCreated.value = order.value;
+    const valueCommandUpdated = command.value + order.value;
 
-    try {
-      await this.orderRepository.save(orderCreated);
-    } catch (error) {
-      console.log("aqui errooooooooooo");
-      console.log(error);
-    }
+    await this.orderRepository.save(orderCreated);
+    await this.commandRepository.update(
+      { id: command.id },
+      { value: valueCommandUpdated }
+    );
   }
 
   async getCommandByTable(tableId: number): Promise<Command | null> {
@@ -44,13 +44,10 @@ class OrderRepository {
     commandCreated.status = "open";
     commandCreated.id_table = tableId;
 
-    try {
-      return await this.commandRepository.save(commandCreated);
-    } catch (error) {
-      console.log("aqui errooooooooooo");
-      console.log(error);
-    }
+    return await this.commandRepository.save(commandCreated);
   }
+
+  async getAll(): Promise<any> {}
 }
 
 export { OrderRepository };

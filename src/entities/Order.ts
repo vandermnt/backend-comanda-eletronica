@@ -31,14 +31,14 @@ export class Order {
   created_at: Date;
 
   @ManyToOne(() => Command, (command) => command.id)
-  @JoinColumn()
+  @JoinColumn({ name: "id_command" })
   id_command: number;
 
   @ManyToOne(() => Table, (table) => table.id)
-  @JoinColumn()
+  @JoinColumn({ name: "id_table" })
   id_table: number;
 
   @ManyToOne(() => Product, (product) => product.id)
-  @JoinColumn()
+  @JoinColumn({ name: "id_product" })
   id_product: number;
 }
