@@ -31,10 +31,13 @@ class OrderRepository {
   }
 
   async getCommandByTable(tableId: number): Promise<Command | null> {
+    console.log(tableId);
     const command = await this.commandRepository.findOne({
+      // relations: ["id_table"],
       where: { id_table: tableId, status: "open" },
     });
 
+    console.log(command);
     return command;
   }
 

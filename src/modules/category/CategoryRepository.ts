@@ -31,8 +31,6 @@ class CategoryRepository {
       categoryId
     );
 
-    console.log(productWithCategory);
-
     if (productWithCategory.length > 0) {
       throw new Error(
         "Não foi possível excluir categoria. Pois existem produtos vinculados"
@@ -40,6 +38,24 @@ class CategoryRepository {
     }
     await this.categoryRepository.delete(categoryId);
     return;
+  }
+
+  async update(categoryId: string, data: any): Promise<void> {
+    const category = await this.getById(categoryId);
+
+    if (!category) {
+      throw new Error("Categoria não encontrada!");
+    }
+
+    category.name = data.name;
+
+    await this.categoryRepository.save(category);
+  }
+
+  async getById(categoryId: string): Promise<Category | null> {
+    return await this.categoryRepository.findOneBy({
+      id: parseInt(categoryId),
+    });
   }
 }
 

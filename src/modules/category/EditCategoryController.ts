@@ -2,20 +2,23 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CategoryRepository } from "./CategoryRepository";
 
-class DeleteCategoryController {
+class EditCategoryController {
   async execute(request: Request, response: Response): Promise<Response> {
     const categoryRepository = container.resolve(CategoryRepository);
+    console.log(request.params);
+
     const { id } = request.params;
+    const data = request.body;
 
     try {
-      const products = await categoryRepository.delete(parseInt(id));
-      return response.status(200).json(products);
+      await categoryRepository.update(id, data);
+      console.log(id);
+      return response.status(200).json("OK");
     } catch (error) {
-      return response
-        .status(400)
-        .send("Erro, não foi possível excluir categoria!");
+      console.log(error);
+      return response.status(700).send("Categoria não encontrada");
     }
   }
 }
 
-export { DeleteCategoryController };
+export { EditCategoryController };

@@ -22,10 +22,13 @@ export class Command {
   @Column()
   status: string;
 
+  @Column()
+  id_table: number;
+
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToMany(() => Table, (table) => table.id)
+  @ManyToOne(() => Table, (table) => table.id)
   @JoinColumn({ name: "id_table" })
-  id_table: number;
+  table: Table;
 }

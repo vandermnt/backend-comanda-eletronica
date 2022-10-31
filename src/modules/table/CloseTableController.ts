@@ -11,6 +11,7 @@ class CloseTableController {
       await tableRepository.close(tableId, commandId);
       return response.status(200);
     } catch (error) {
+      console.log(error);
       return response.status(400).json(error);
     }
   }

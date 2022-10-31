@@ -5,6 +5,7 @@ import { Command } from "../entities/Command";
 import { Order } from "../entities/Order";
 import { Product } from "../entities/Product";
 import { Table } from "../entities/Table";
+import { User } from "../entities/User";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
   password: "root",
   database: "db-comanda-eletronica",
   synchronize: true,
-  entities: [Category, Product, Table, Command, Order],
+  entities: [Category, Product, Table, Command, Order, User],
   migrations: ["dist/database/migrations/*.js"],
 });
 

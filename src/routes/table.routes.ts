@@ -11,6 +11,6 @@ const tableRouter = Router();
 
 tableRouter.get("/tables", listTablesController.execute);
 tableRouter.post("/tables", newTablesController.execute);
-tableRouter.post("/tables/close", closeTablesController.execute);
+tableRouter.put("/tables/close", closeTablesController.execute);
 
 export { tableRouter };
