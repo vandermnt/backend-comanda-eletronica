@@ -1,16 +1,20 @@
 import { Order } from "../../entities/Order";
 import { AppDataSource } from "../../database/data-source";
 import { Command } from "../../entities/Command";
-import { injectable } from "tsyringe";
+import { container, injectable } from "tsyringe";
+import { TableRepository } from "../table/TableRepository";
+import { Table } from "../../entities/Table";
 
 @injectable()
 class OrderRepository {
   private readonly orderRepository;
   private readonly commandRepository;
+  private readonly tableeRepository;
 
   constructor() {
     this.orderRepository = AppDataSource.getRepository(Order);
     this.commandRepository = AppDataSource.getRepository(Command);
+    this.tableeRepository = AppDataSource.getRepository(Table);
   }
 
   async create(order: any, command: Command): Promise<void> {
@@ -21,8 +25,7 @@ class OrderRepository {
     orderCreated.id_command = order.commandId;
     orderCreated.note = order.note;
     orderCreated.value = order.value;
-    const valueCommandUpdated = command.value + order.value;
-
+    const valueCommandUpdated = parseInt(command.value as any) + order.value;
     await this.orderRepository.save(orderCreated);
     await this.commandRepository.update(
       { id: command.id },
@@ -31,13 +34,10 @@ class OrderRepository {
   }
 
   async getCommandByTable(tableId: number): Promise<Command | null> {
-    console.log(tableId);
     const command = await this.commandRepository.findOne({
-      // relations: ["id_table"],
       where: { id_table: tableId, status: "open" },
     });
 
-    console.log(command);
     return command;
   }
 
@@ -47,6 +47,12 @@ class OrderRepository {
     commandCreated.status = "open";
     commandCreated.id_table = tableId;
 
+    const tableRepository = container.resolve(TableRepository);
+
+    const table = await tableRepository.getById(tableId);
+    table.status = false;
+
+    await this.tableeRepository.save(table);
     return await this.commandRepository.save(commandCreated);
   }
 

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -18,13 +19,13 @@ export class Product {
   @Column()
   description: string;
 
-  @Column()
+  @Column("decimal", { precision: 5, scale: 2 })
   price: number;
 
   @Column()
   id_category: number;
 
-  @OneToOne(() => Category, (category) => category.id, { eager: true })
+  @ManyToOne(() => Category, (category) => category.id, { eager: true })
   @JoinColumn({ name: "id_category" })
   category: Category;
 }

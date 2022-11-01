@@ -24,7 +24,7 @@ export class Order {
   @Column()
   note: string;
 
-  @Column()
+  @Column("decimal", { precision: 5, scale: 2 })
   value: number;
 
   @CreateDateColumn()

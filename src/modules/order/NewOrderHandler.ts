@@ -8,6 +8,7 @@ class NewOrderHandler {
   async handler(order: any): Promise<any> {
     const { tableId } = order;
     const command = await this.orderRepository.getCommandByTable(tableId);
+    console.log("aqu caralho");
     console.log(command);
 
     if (!command?.id) {

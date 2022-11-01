@@ -16,7 +16,7 @@ export class Command {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("decimal", { precision: 5, scale: 2 })
   value: number;
 
   @Column()

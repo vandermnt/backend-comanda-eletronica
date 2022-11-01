@@ -12,6 +12,7 @@ class CommandRepository {
 
   async getCommandByStatusOpen(): Promise<Command[] | null> {
     const command = await this.commandRepository.find({
+      relations: ["table"],
       where: { status: "open" },
     });
 

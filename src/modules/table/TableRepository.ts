@@ -1,3 +1,4 @@
+import { injectable } from "tsyringe";
 import { AppDataSource } from "../../database/data-source";
 import { Command } from "../../entities/Command";
 import { Table } from "../../entities/Table";
@@ -6,6 +7,8 @@ enum Status {
   closed = "closed",
   open = "open",
 }
+
+@injectable()
 class TableRepository {
   private readonly tableRepository;
   private readonly commandRepository;
@@ -22,7 +25,7 @@ class TableRepository {
   async create(table: Table): Promise<void> {
     const tableCreated = new Table();
     tableCreated.number = table.number;
-    tableCreated.status = table.status;
+    tableCreated.status = true;
 
     await this.tableRepository.save(tableCreated);
   }
@@ -44,11 +47,19 @@ class TableRepository {
       throw new Error("Não foi possível fechar a mesa. Comanda inexistente!");
     }
 
-    table.status = false;
+    table.status = true;
     command.status = Status.closed;
 
     await this.tableRepository.save(table);
     await this.commandRepository.save(command);
+  }
+
+  async getById(tableId: number): Promise<any> {
+    const table = await this.tableRepository.findOneBy({
+      id: tableId,
+    });
+
+    return table;
   }
 }
 

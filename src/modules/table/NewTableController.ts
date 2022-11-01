@@ -6,8 +6,7 @@ class NewTableController {
     const tableRepository = new TableRepository();
 
     await tableRepository.create(request.body);
-
-    return response.status(201);
+    return response.status(201).json("ok");
   }
 }
 
