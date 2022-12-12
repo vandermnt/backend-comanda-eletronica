@@ -4,13 +4,14 @@ import { LoginUseCase } from "./loginUseCase";
 
 class LoginController {
   async handle(request: Request, response: Response): Promise<Response> {
-    console.log(request.body);
     const { email, password } = request.body;
-
     const loginUseCase = container.resolve(LoginUseCase);
-    const token = await loginUseCase.execute({ email, password });
-
-    return response.status(200).json(token);
+    try {
+      const token = await loginUseCase.execute({ email, password });
+      return response.status(200).json(token);
+    } catch (error) {
+      return response.status(400).json({ message: "Credenciais inválidas" });
+    }
   }
 }
 

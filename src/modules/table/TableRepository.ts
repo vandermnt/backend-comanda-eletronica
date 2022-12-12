@@ -19,7 +19,11 @@ class TableRepository {
   }
 
   async getAll(): Promise<Table[]> {
-    return await this.tableRepository.find();
+    return await this.tableRepository.find({
+      order:{
+        number: "ASC"
+      }
+    });
   }
 
   async create(table: Table): Promise<void> {

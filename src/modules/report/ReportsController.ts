@@ -4,7 +4,7 @@ import { ReportsRepository } from "./ReportsRepository";
 
 class ReportsController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { dateStart, dateEnd } = request.params;
+    const { dateStart, dateEnd } = request.query;
 
     if (!dateStart && !dateEnd) {
       return response

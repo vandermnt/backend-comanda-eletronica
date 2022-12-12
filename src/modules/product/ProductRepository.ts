@@ -25,9 +25,12 @@ class ProductRepository {
   }
 
   async getByCategory(categoryId: number): Promise<Product[]> {
+    console.log(categoryId);
+
     const products = await this.productRepository.find({
+      relations: ["category"],
       where: {
-        id_category: 3,
+        id_category: categoryId,
       },
     });
 

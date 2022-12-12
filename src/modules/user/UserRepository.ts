@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { AppDataSource } from "../../database/data-source";
 import { User } from "../../entities/User";
 
@@ -11,10 +12,12 @@ class UserRepository {
   }
 
   async create(user: User): Promise<void> {
+    const passwordHash = await hash(user.password, 8);
+
     const userCreated = new User();
     userCreated.name = user.name;
     userCreated.email = user.email;
-    userCreated.password = user.password;
+    userCreated.password = passwordHash;
     userCreated.is_admin = user.is_admin;
 
     try {
@@ -46,6 +49,12 @@ class UserRepository {
 
   async getById(productId: string): Promise<User | null> {
     return await this.userRepository.findOneBy({ id: parseInt(productId) });
+  }
+
+  async findByEmail(email: any): Promise<User | null> {
+    const user = await this.userRepository.findOneBy({ email } as any);
+
+    return user;
   }
 }
 

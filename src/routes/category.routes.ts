@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ensureAuthenticate } from "../middleware/ensureAuthenticate";
 import {
   DeleteCategoryController,
   ListCategoryContoller,
@@ -15,10 +16,30 @@ const listCategoryByIdController = new ListCategoryByIdController();
 
 const categoryRouter = Router();
 
-categoryRouter.post("/categories", newCategoryController.execute);
-categoryRouter.get("/categories", listCategoryController.execute);
-categoryRouter.delete("/categories/:id", deleteCategoryController.execute);
-categoryRouter.put("/categories/:id", editProductController.execute);
-categoryRouter.get("/categories/:id", listCategoryByIdController.execute);
+categoryRouter.post(
+  "/categories",
+  ensureAuthenticate,
+  newCategoryController.execute
+);
+categoryRouter.get(
+  "/categories",
+  ensureAuthenticate,
+  listCategoryController.execute
+);
+categoryRouter.delete(
+  "/categories/:id",
+  ensureAuthenticate,
+  deleteCategoryController.execute
+);
+categoryRouter.put(
+  "/categories/:id",
+  ensureAuthenticate,
+  editProductController.execute
+);
+categoryRouter.get(
+  "/categories/:id",
+  ensureAuthenticate,
+  listCategoryByIdController.execute
+);
 
 export { categoryRouter };
