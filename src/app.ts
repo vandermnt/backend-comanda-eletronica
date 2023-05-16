@@ -13,12 +13,11 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(routes);
 app.use(
   (err: Error, request: Request, response: Response, _next: NextFunction) => {
-    console.log("oi");
     response.status(400).json({ message: err.message });
   }
 );
+app.use(routes);
 
 export { app };

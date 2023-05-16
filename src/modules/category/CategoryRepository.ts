@@ -14,7 +14,7 @@ class CategoryRepository {
   }
 
   async getAll(): Promise<Category[]> {
-    return this.categoryRepository.find();
+    return await this.categoryRepository.find();
   }
 
   async create(category: Category): Promise<Category | undefined> {

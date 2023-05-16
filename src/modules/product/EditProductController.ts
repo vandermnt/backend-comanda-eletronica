@@ -11,7 +11,6 @@ class EditProductController {
       await productRepository.update(id, data);
       return response.status(200).json("OK");
     } catch (error) {
-      console.log(error);
       return response.status(400).send("Produto não encontrado");
     }
   }
